@@ -1,0 +1,35 @@
+body {
+    background-color: blanchedalmond;
+}
+h1 {
+    background-color: burlywood;
+    color: brown;
+    text-align: center;
+    margin-bottom: 40px;
+
+}
+
+table {
+    border: 2px solid brown;
+    margin-top: 50px;
+    margin: auto;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+    border: 2px solid brown;
+
+    transition: 0.5s;
+}
+
+td:hover {
+    background-color: burlywood;
+}
+.hide {
+    display: none;
+  }
