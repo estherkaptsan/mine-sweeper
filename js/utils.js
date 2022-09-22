@@ -9,12 +9,13 @@ function getEmptyCell() {
 
     for (let i = 0; i < gTable.length; i++) {
         for (let j = 0; j < gTable[i].length; j++) {
-            if (gTable[i][j] === EMPTY) {
+            if (gTable[i][j] === gCells.EMPTY) {
                 nums.push({ i, j })
             }
         }
     }
     const randIdx = getRandomInt(0, nums.length - 1)
     const num = nums.splice(randIdx, 1)
+    console.log(nums)
     return num[0]
 }
