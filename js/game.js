@@ -21,20 +21,32 @@ let gLevel = {
     expert: { size: 12, mines: 32 },
 }
 
-let gCurrentLevel = 'medium'
-let gTable = buildBoard()
-let gFinished = false
+let gCurrentLevel = 'easy'
+let gTable
+let gFinished
+let gTimerInterval
 
 // ---------------------------------------------------------------------
 
 function initGame() {
     console.log('init game')
-    renderBoard()
+    gFinished = false
+    // clearInterval(gTimerInterval) 
+    gTimerInterval = 0
+
+    gTable = buildBoard()
+
     window.addEventListener('contextmenu', (event) => {
         event.preventDefault()
         rightClickEvent(event)
     }, false)
     setMinesInRandomCells(gTable, getCurrentLevel().size, getCurrentLevel().mines)
+
+    let timer = document.querySelector('.timer span')
+    timer.innerText = ''
+    showTimer()
+    renderBoard()
+    restartButton()
 }
 
 function rightClickEvent(event) {
@@ -75,7 +87,7 @@ function renderBoard() {
     for (let i = 0; i < gTable.length; i++) {
         strHTML += `\n<tr class="board-row">\n`
         for (let j = 0; j < gTable.length; j++) {
-        //    const cell = gTable[i][j]
+            //    const cell = gTable[i][j]
             let className = 'cell-' + i + '-' + j
             strHTML += `\t<td  class="${i} ${j}"           
             onclick="cellClicked(this, ${i}, ${j}, ${1})"></td>\n`
@@ -85,8 +97,21 @@ function renderBoard() {
     elBoard.innerHTML = strHTML
 }
 
+function getLevel(elBtn) {
+    console.log(elBtn)
+    if (elBtn.innerText === 'EASY') {
+        getCurrentLevel().size
+        console.log(gCurrentLevel)
+    }
+    if (elBtn.innerText === 'MEDIUM') {
+        gCurrentLevel = 'medium'
+    }
+    if (elBtn.innerText === 'EXPERT') {
+        gCurrentLevel = 'expert'
+    }
+}
+
 function cellClicked(elCell, i, j, leftClick) {
-    // TODO timer
     if (gFinished)
         return
 
@@ -195,14 +220,17 @@ function checkIfAllMinesAreFlagged() {
 }
 
 function gameOver(succeeded) {
-    // TODO restart button, and clear gTimerInterval
-    // TODO modal - you win / you lose
-    if (succeeded) {
-        console.log('you win')
-    } else {
-        console.log('you lose')
-    }
+    clearInterval(gTimerInterval)
+
+    let elBtn = document.querySelector('button')
+    elBtn.innerText = (succeeded) ? '😎' : '🤯'
+
     gFinished = true
+}
+
+function restartButton() {
+    let elBtn = document.querySelector('button')
+    elBtn.innerText = '😃'
 }
 
 function getNegsMineCount(i, j) {
@@ -228,12 +256,12 @@ function setNegsMineCount(i, j, count) {
     let elCell = elBoard.rows[i].cells[j]
     elCell.innerText = count
 }
-
+ 
 function openCell(i, j) {
     // 1) set back color
     let elBoard = document.querySelector('table')
     let elCell = elBoard.rows[i].cells[j]
-    elCell.style.backgroundColor = 'lightblue';
+    elCell.style.backgroundColor = '#e9edc9';
     // 2) set count of mine negs
     let count = getNegsMineCount(i, j)
     if (count > 0)
@@ -275,7 +303,21 @@ function setMinesInRandomCells(table, tableSize, numOfMines) {
     }
 }
 
+function showTimer() {
+    let timer = document.querySelector('.timer span')
+    let start = Date.now()
 
+    gTimerInterval = setInterval(() => {
+        let currTs = Date.now()
+        let seconds = parseInt((currTs - start) / 1000)
+        let ms = (currTs - start) - seconds * 1000
+
+        ms = '000' + ms
+        ms = ms.substring(ms.length - 3, ms.length)
+
+        timer.innerText = `\n ${seconds}:${ms}`
+    }, 100)
+}
 
 
 

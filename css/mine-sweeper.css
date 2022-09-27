@@ -1,14 +1,14 @@
 body {
-    background-color: blanchedalmond;
+    background-color: #ffebcd;
+    
 }
 h1 {
     background-color: burlywood;
-    color: brown;
+    color: #6c584c;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 table {
-    border: 2px solid brown;
     margin-top: 50px;
     margin: auto;
     cursor: pointer;
@@ -16,11 +16,11 @@ table {
     max-width: 500px;
 }
 td {
-    min-width: 40px;
-    width: 20px;
-    height: 40px;
+    min-width: 30px;
+    width: 10px;
+    height: 30px;
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     padding: 10px;
     border: 2px solid brown;
 
@@ -31,4 +31,29 @@ td:hover {
 }
 .hide {
     display: none;
-  }
+}
+.timer{
+    background-color: burlywood;
+    width: 120px;
+    height: 60px;
+    margin: auto;
+    text-align: center;
+    padding-top: 20px;
+}
+.btn{
+    text-align: center;
+    font-size: 40px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 20%;
+    background-color: blanchedalmond;
+    border-color: blanchedalmond;
+}
+.levels{
+    text-align: center;
+    padding-bottom: 20px;
+    background-color: blanchedalmond;
+}
+.level{
+    background-color: blanchedalmond;
+}
